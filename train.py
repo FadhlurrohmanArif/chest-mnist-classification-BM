@@ -11,7 +11,7 @@ from utils import plot_training_history, visualize_random_val_predictions
 # --- Hyperparameter ---
 EPOCHS = 16
 BATCH_SIZE = 16
-LEARNING_RATE = 0.0001
+LEARNING_RATE = 0.000001
 
 def train(model_type: str = "simple"):
     # 1. Memuat Data
@@ -23,6 +23,12 @@ def train(model_type: str = "simple"):
             from model_efficientnet import EfficientNetV1 as ModelClass
         except Exception as e:
             print("Warning: model_efficientnet import failed, falling back to SimpleCNN:", e)
+            ModelClass = SimpleCNN
+    elif model_type == "googlenet":
+        try:
+            from model_googlenet import GoogLeNetWrapper as ModelClass
+        except Exception as e:
+            print("Warning: model_googlenet import failed, falling back to SimpleCNN:", e)
             ModelClass = SimpleCNN
     else:
         ModelClass = SimpleCNN
@@ -142,7 +148,7 @@ def train(model_type: str = "simple"):
               f"Train Loss: {avg_train_loss:.4f} | Train Acc: {train_accuracy:.2f}% | "
               f"Val Loss: {avg_val_loss:.4f} | Val Acc: {val_accuracy:.2f}%")
 
-    print("--- Training Selesai ---")
+    print("--- Training SelesAI ---")
     
     # Tampilkan plot
     plot_training_history(train_losses_history, val_losses_history, 
@@ -153,7 +159,7 @@ def train(model_type: str = "simple"):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", choices=["simple", "efficient"], default="simple",
-                        help="Model to use: 'simple' for SimpleCNN, 'efficient' for EfficientNetV1")
+    parser.add_argument("--model", choices=["simple", "efficient", "googlenet"], default="simple",
+                        help="Model to use: 'simple', 'efficient', or 'googlenet'")
     args = parser.parse_args()
     train(model_type=args.model)
