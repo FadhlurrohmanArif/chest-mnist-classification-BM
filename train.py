@@ -30,6 +30,18 @@ def train(model_type: str = "simple"):
         except Exception as e:
             print("Warning: model_googlenet import failed, falling back to SimpleCNN:", e)
             ModelClass = SimpleCNN
+    elif model_type == "regnet":
+        try:
+            from regnet_model import RegNetY16GF as ModelClass
+        except Exception as e:
+            print("Warning: regnet_model import failed, falling back to SimpleCNN:", e)
+            ModelClass = SimpleCNN
+    elif model_type == "regnet":
+        try:
+            from model_regnety_Y import RegNetY as ModelClass
+        except Exception as e:
+            print("Warning: model_regnety import failed, falling back to SimpleCNN:", e)
+            ModelClass = SimpleCNN
     else:
         ModelClass = SimpleCNN
 
