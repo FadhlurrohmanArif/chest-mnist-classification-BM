@@ -9,9 +9,9 @@ from model import SimpleCNN
 from utils import plot_training_history, visualize_random_val_predictions
 
 # --- Hyperparameter ---
-EPOCHS = 16
-BATCH_SIZE = 16
-LEARNING_RATE = 0.000001
+EPOCHS = 200
+BATCH_SIZE = 50
+LEARNING_RATE = 0.00001
 
 def train(model_type: str = "simple"):
     # 1. Memuat Data
